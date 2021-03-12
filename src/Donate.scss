@@ -1,0 +1,24 @@
+@import "~bootstrap/scss/bootstrap";
+.min-vw-75 {
+  min-width: 99vw;
+}
+main {
+min-height: 100vh;
+  background-color: #343a40;
+}
+.DonateWelcome {
+  bottom: 20%;
+  width: 900px;
+  left: calc(50% - (900px/2));
+}
+#price, #nickname {
+  width: 100px;
+  border-radius: 5px;
+  border: 0;
+}
+@media (max-width: 900px) {
+  .DonateWelcome {
+    width: 300px;
+    left: calc(50% - (300px/2));
+  }
+}
