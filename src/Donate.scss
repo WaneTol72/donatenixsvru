@@ -2,22 +2,65 @@
 .min-vw-75 {
   min-width: 99vw;
 }
+.black, .nav-1 {
+  background-color: #202020 !important;
+}
 .nav {
   z-index: 999;
 }
+.nav-1 {
+  z-index: 10;
+  height: 105px;
+}
+
+.NavButton, .NavButton1 {
+  border-bottom: solid 1px transparent;
+  transition-duration: 150ms;
+}
+.NavButton1:hover {
+  border-bottom: solid 1px black;
+ }
+.NavButton:hover {
+  border-bottom: solid 1px white;
+}
 main {
 min-height: 100vh;
-  background-color: #343a40;
+}
+.bg1 {
+  background-color: #f8f9fa;
 }
 .DonateWelcome {
   bottom: 20%;
   width: 900px;
   left: calc(50% - (900px/2));
 }
-#price, #nickname {
-  width: 100px;
+#nickname, #email {
   border-radius: 5px;
   border: 0;
+}
+input:invalid {
+  border-bottom: solid 1px red !important;
+}
+input,
+input:valid {
+  border-bottom: solid 1px #ccc !important;
+}
+.shake {
+  animation: shake 4.72s ease infinite;
+}
+
+@keyframes shake {
+  0% { transform:translate(0,0) }
+  1.78571% { transform:translate(5px,0) }
+  3.57143% { transform:translate(0,0) }
+  5.35714% { transform:translate(5px,0) }
+  7.14286% { transform:translate(0,0) }
+  8.92857% { transform:translate(5px,0) }
+  10.71429% { transform:translate(0,0) }
+  100% { transform:translate(0,0) }
+}
+.LogoText {
+  margin-left: 12vw !important;
 }
 @media (max-width: 900px) {
   .DonateWelcome {

@@ -1,5 +1,5 @@
 html {
-  background-color: #343a40 !important;
+  background-color: #202020 !important;
 }
 body {
   margin: 0;
@@ -15,21 +15,20 @@ code {
     monospace;
 }
 
-.modal-content {
-  background-color: #343a40 !important;
-  color: white;
-}
 .modal-open {
   padding-right: 0 !important;
 }
 .modal-header {
   border-bottom: 1px solid #0000006b !important;
+  background-color: #202020 !important;
+  color: white;
 }
-
-.modal-footer {
-  border-top: 1px solid #0000006b !important;
+.link-img {
+  transition-duration: 0.2s;
 }
-
+.link-img:hover {
+  filter: brightness(0.75);
+}
 .close {
   color: #fff !important;
 }

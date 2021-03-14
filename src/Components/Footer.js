@@ -54,7 +54,7 @@ function open(url) {
 
 function Footer() {
         return (
-            <Container id="Footer" className="pt-5 pb-2 text-white mw-100 bg-dark">
+            <Container id="Footer" className="pt-5 pb-2 text-white mw-100 black">
                 <Row className="pr-4 pl-4">
                     <Col lg={2}>
                         <h2 className="mb-3">Контакты:</h2>

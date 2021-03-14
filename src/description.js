@@ -8,7 +8,6 @@ import IRON from "./logo/IRON.webp";
 import GER from "./assets/GER.webp";
 import EMERALD from "./logo/EMERALD.webp";
 import Pic5 from "./assets/pic5.webp";
-import TOTEM from "./logo/TOTEM.webp"
 /*-----------------------------------------*/
 /*
 title - заголовок/название
@@ -22,7 +21,7 @@ picture - картинка
 
 Картинки и фоны редачить я буду, а ты пошел нахуй
  */
-export const slides = [
+export const privilege = [
     {
         title: "Герцог",
         titleColor: "limegreen",
@@ -96,7 +95,7 @@ evoker
 рыба`,
         price: 385,
         image: GRAF,
-        picture: DIAMOND
+        picture: EMERALD
     },
     {
         title: "Барон",
@@ -129,7 +128,7 @@ evoker
 агрессивный паук`,
         price: 249,
         image: BARON,
-        picture: GOLD
+        picture: DIAMOND
     },
     {
         title: "Легионер",
@@ -168,14 +167,24 @@ evoker
 свин`,
         price: 119,
         image: LEG,
-        picture: IRON
+        picture: GOLD
     },
     {
-        title: "Не дождетесь...",
+        title: "Маркиз",
         titleColor: "green",
         description: `Разбанит вас за небольшую плату`,
-        price: 100,
+        price: 40,
         image: Pic5,
-        picture: TOTEM
+        picture: IRON
+    }
+];
+export const goods = [
+    {
+        title: "Мать админа",
+        titleColor: "green",
+        description: `Разбанит вас за небольшую плату`,
+        price: 0,
+        image: Pic5,
+        picture: IRON
     }
 ];
