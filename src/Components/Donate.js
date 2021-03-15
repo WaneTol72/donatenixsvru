@@ -1,21 +1,63 @@
 import '../Donate.scss';
-import { Card, Col, Image, Nav, Row} from "react-bootstrap";
-import { privilege, goods } from "../description.js"
+import {Card, Col, Image, Nav, Row} from "react-bootstrap";
+import { products } from "../description.js"
 import ModalWindow from "./ModalWindow";
-import {Component} from "react";
+import React from "react";
+import Header from "./Header";
+import Footer from "./Footer";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    NavLink,
+    useParams,
+    useRouteMatch
+} from "react-router-dom";
 
 function Card1(props) {
     let array
     let Cards
-    switch(props.id) {
-        case "#features":
-            array = goods
+    console.log(props.server)
+    console.log(props.cat)
+    switch(props.server) {
+        case "/classic":
+            switch(props.cat) {
+                case "resources":
+                    array = products.Classic.goods
+                    break
+                case "privilege":
+                    array = products.Classic.privilege
+                    break
+                default:
+                    array = products.Classic.privilege.concat(products.Classic.goods);
+            }
             break
-        case "#pricing":
-            array = goods
+        case "/anarchy":
+            switch(props.cat) {
+                case "resources":
+                    array = products.Anarchy.goods
+                    break
+                case "privilege":
+                    array = products.Anarchy.privilege
+                    break
+                default:
+                    array = products.Anarchy.privilege.concat(products.Anarchy.goods);
+            }
+            break
+        case "/creative":
+            switch(props.cat) {
+                case "resources":
+                    array = products.Creative.goods
+                    break
+                case "privilege":
+                    array = products.Creative.privilege
+                    break
+                default:
+                    array = products.Creative.privilege.concat(products.Creative.goods);
+            }
             break
         default:
-            array = privilege.concat(goods);
+            array = products.Classic.goods
     }
          Cards = array.map((variant, idx) => (
             <Col lg={6} key={idx} >
@@ -50,43 +92,59 @@ function Card1(props) {
         ));
         return Cards;
 }
+function Magaz(props) {
+    let { privilegeId } = useParams();
+    return (
+            <div className="pr-4 pl-4 pt-2 w-50 h-50 bg1  mb-5 mr-auto ml-auto">
+                <Row>
+                    <Card1 server={props.server} cat={privilegeId}/>
+                </Row>
+            </div>
+    )
+}
 
+function Products() {
+    let { path, url } = useRouteMatch();
+    console.log("Path ", path, "url ", url)
+    return (
+        <>
+        <div className="mt-2 d-flex mr-auto ml-auto">
+            <Nav className="pb-1 mr-auto ml-auto">
+                <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white NavButton1"  to={`${url}/all`}>ВСЕ</NavLink>
+                <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white NavButton1" to={`${url}/resources`}>РЕСУРСЫ</NavLink>
+                <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white NavButton1" to={`${url}/privilege`}>ПРИВИЛЕГИИ</NavLink>
+            </Nav>
+        </div>
+    <Switch>
+        <Route path={`${path}/:privilegeId`}>
+            <Magaz server={url}/>
+        </Route>
+    </Switch>
+    </>
+    )
+}
+function Donate() {
 
-class Donate extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            page: "#home"
-        };
-        this.handleChangeCat = this.handleChangeCat.bind(this);
-    }
-    handleChangeCat(event) {
-        this.setState({page: event.target.hash});
-        console.log(this.state.page)
-    }
-    render() {
         return (
             <>
-                <main className="text-center ">
-                    <div className="mt-2 d-flex mr-auto ml-auto">
-                        <Nav className="pb-1 mr-auto ml-auto">
-                            <Nav.Link onClick={this.handleChangeCat}
-                                      className={
-                                          this.state.page === "#all" ? "black text-white h5 font-weight-light mb-0" : "text-dark h5 font-weight-light NavButton1 mb-0"
-                                      }
-                                      href="#all">ВСЕ</Nav.Link>
-                            <Nav.Link onClick={this.handleChangeCat} className={this.state.page === "#features" ? "black text-white h5 font-weight-light mb-0" : "text-dark h5 font-weight-light NavButton1 mb-0"} href="#features">РЕСУРСЫ</Nav.Link>
-                            <Nav.Link onClick={this.handleChangeCat} className={this.state.page === "#pricing" ? "black text-white h5 font-weight-light mb-0" : "text-dark h5 font-weight-light NavButton1 mb-0"} href="#pricing">ПЕНИСЫ</Nav.Link>
-                        </Nav>
-                    </div>
-                    <div className="pr-4 pl-4 pt-2 w-50 h-50 bg1  mb-5 mr-auto ml-auto">
-                        <Row>
-                                <Card1 id={this.state.page}/>
-                        </Row>
-                    </div>
-                </main>
+                <Router>
+                <Header />
+                    <main className="text-center ">
+                    <Switch>
+                        <Route path="/classic">
+                            <Products/>
+                        </Route>
+                        <Route path="/creative">
+                            <Products/>
+                        </Route>
+                        <Route path="/anarchy">
+                            <Products/>
+                        </Route>
+                    </Switch>
+                    </main>
+                <Footer />
+                </Router>
             </>
-        );
-    }
+);
 }
 export default Donate;

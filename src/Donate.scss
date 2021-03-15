@@ -13,6 +13,10 @@
   height: 105px;
 }
 
+.bottom-border {
+  border-bottom: solid 1px white !important;
+}
+
 .NavButton, .NavButton1 {
   border-bottom: solid 1px transparent;
   transition-duration: 150ms;
@@ -22,6 +26,13 @@
  }
 .NavButton:hover {
   border-bottom: solid 1px white;
+}
+.category {
+  color: black;
+}
+.category:hover {
+  color: white;
+  background-color: #202020 !important;
 }
 main {
 min-height: 100vh;

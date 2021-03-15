@@ -21,14 +21,16 @@ picture - картинка
 
 Картинки и фоны редачить я буду, а ты пошел нахуй
  */
-export const privilege = [
-    {
+export const products = {
+    Classic: {
+        privilege:[
+            {
         title: "Герцог",
         titleColor: "limegreen",
         description: `Направьте ваш народ на путь истинный
                       ваш долг - отдать себя на благо государства...`,
         perks:
-        `Префикс в табе и чате Duke
+            `Префикс в табе и чате Duke
 Все питомцы + все действия с питомцами
 8 точек дома
 10 приватов
@@ -37,7 +39,7 @@ export const privilege = [
 Все крылья
 Сохранение инвентаря при смерти`,
         commands:
-        `/nick Изменить ник
+            `/nick Изменить ник
 /kit duke Уникальный игровой набор
 head [ник] Позволяет брать голову игрока
 /grindstone Открывает точило (починка и снятие чар)
@@ -62,13 +64,13 @@ evoker
         image: GER,
         picture: EMERALD
     },
-    {
+            {
         title: "Граф",
         titleColor: "lightseagreen",
         description: `Да будет так, ваше сиятельство,
                       мы признаны вашему роду...`,
         perks:
-        `Префикс в табе и чате Граф
+            `Префикс в табе и чате Граф
 Питомцы третьего уровня
 6 точек дома
 8 приватов
@@ -79,7 +81,7 @@ evoker
 Божественные крылья
 Сохранение опыта при смерти`,
         commands:
-        `Команды
+            `Команды
         /back Вернуть на точку смерти
 /kit graph Уникальный игровой набор
 /echest Открыть эндерсундук
@@ -88,7 +90,7 @@ evoker
 /cartographytable Открыть стол картографа
 Так же наследует Legionary, Baron`,
         pets:
-        `иглобрюх
+            `иглобрюх
 панда
 слайм
 мул
@@ -97,94 +99,203 @@ evoker
         image: GRAF,
         picture: EMERALD
     },
-    {
-        title: "Барон",
-        titleColor: "gold",
-        description: `Вам не ново бывать в кругах знати
-                     вы должны быть примером для общины...`,
-        perks:
-        `Префикс в табе и чате Барон
-Питомцы второго уровня
-4 точки дома
-6 приватов
-2 собственных варпа
-Флаг для приватов fall-damage
-Надевать пета на голову
-Использовать цветной текст в чате
-Ангельские крылья`,
-        commands:
-        `/heal Лечение (раз в 60 сек)
-/anvil Открыть наковальню
-/kit baron Уникальный игровой набор
-/depth Узнать количество блоков над уровнем моря
-/eglow Подсветка
-Наследует возможности Legionary`,
+            {
+                title: "Барон",
+                titleColor: "gold",
+                description: `Вам не ново бывать в кругах знати
+                             вы должны быть примером для общины...`,
+                perks:
+                    `Префикс в табе и чате Барон
+Пито        мцы второго уровня
+4 то        чки дома
+6 пр        иватов
+2 со        бственных варпа
+Флаг         для приватов fall-damage
+Наде        вать пета на голову
+Испо        льзовать цветной текст в чате
+Анге        льские крылья`,
+                commands:
+                    `/heal Лечение (раз в 60 сек)
+/anv        il Открыть наковальню
+/kit         baron Уникальный игровой набор
+/dep        th Узнать количество блоков над уровнем моря
+/egl        ow Подсветка
+Насл        едует возможности Legionary`,
 
-        pets:
-        `полярный медведь
-хоглин
-волк
-зомби лошедь
-агрессивный паук`,
-        price: 249,
-        image: BARON,
-        picture: DIAMOND
-    },
-    {
-        title: "Легионер",
-        titleColor: "silver",
-        description: `Имя, которое не просто звучит
-                     они увидят... ваше превосходство...`,
-        perks:
-        `Префикс в табе и чате Легионер
-Питомцы первого уровня
-2 точки дома
-4 привата
-Собственный варп
-Флаг для приватов mob-spawning
-Садиться на пета
-Крылья холода`,
-        commands:
-        `
-        /feed Пополнение полоски голода
-/repair Починка экипировки
-/kill Харакири (убить себя)
-/kit legionary Уникальный игровой набор
-/craft Открыть верстак
-/clear Очистка инвентаря
-/clearinventoryconfirmtoggle вкл подтверждение очистки
-/co i Инфо о действии игрока над блоком
-/chestsort Автоматическая сортировка сундука
-        `,
-        pets:
-        `Лошадь
-кролик
-корова
-дельфин
-паук
-черепаха
-голем
-свин`,
-        price: 119,
-        image: LEG,
-        picture: GOLD
-    },
-    {
+                pets:
+                    `полярный медведь
+хогл        ин
+волк        
+зомб        и лошедь
+агре        ссивный паук`,
+                price: 249,
+                image: BARON,
+                picture: DIAMOND
+            },
+            {
+                title: "Легионер",
+                titleColor: "silver",
+                description: `Имя, которое не просто звучит
+                             они увидят... ваше превосходство...`,
+                perks:
+                    `Префикс в табе и чате Легионер
+Пито        мцы первого уровня
+2 то        чки дома
+4 пр        ивата
+Собс        твенный варп
+Флаг         для приватов mob-spawning
+Сади        ться на пета
+Крыл        ья холода`,
+                commands:
+                    `
+                /feed Пополнение полоски голода
+/rep        air Починка экипировки
+/kil        l Харакири (убить себя)
+/kit         legionary Уникальный игровой набор
+/cra        ft Открыть верстак
+/cle        ar Очистка инвентаря
+/cle        arinventoryconfirmtoggle вкл подтверждение очистки
+/co         i Инфо о действии игрока над блоком
+/che        stsort Автоматическая сортировка сундука
+                `,
+                pets:
+                    `Лошадь
+крол        ик
+коро        ва
+дель        фин
+паук        
+чере        паха
+голе        м
+свин        `,
+                price: 119,
+                image: LEG,
+                picture: GOLD
+            },
+            {
         title: "Маркиз",
         titleColor: "green",
         description: `Разбанит вас за небольшую плату`,
         price: 40,
         image: Pic5,
         picture: IRON
-    }
-];
-export const goods = [
-    {
+    }],
+        goods:[
+            {
         title: "Мать админа",
         titleColor: "green",
         description: `Разбанит вас за небольшую плату`,
         price: 0,
         image: Pic5,
         picture: IRON
+            }
+            ]
+    },
+    Creative: {
+        privilege:[
+            {
+                title: "Мать админа Креатива",
+                titleColor: "green",
+                description: `Разбанит вас за небольшую плату`,
+                price: 461,
+                image: Pic5,
+                picture: IRON
+            },
+            {
+                title: "Мать админа Креатива",
+                titleColor: "green",
+                description: `Разбанит вас за небольшую плату`,
+                price: 985652,
+                image: Pic5,
+                picture: IRON
+            },
+            {
+                title: "Мать админа Креатива",
+                titleColor: "green",
+                description: `Разбанит вас за небольшую плату`,
+                price: 0,
+                image: Pic5,
+                picture: IRON
+            },
+            {
+                title: "Мать админа Креатива",
+                titleColor: "green",
+                description: `Разбанит вас за небольшую плату`,
+                price: 0,
+                image: Pic5,
+                picture: IRON
+            },
+        ],
+        goods:[
+            {
+                title: "Мать Баракана",
+                titleColor: "green",
+                description: `Разбанит вас за небольшую плату`,
+                price: 56456,
+                image: Pic5,
+                picture: IRON
+            },
+            {
+                title: "Мать Виктора шлюха",
+                titleColor: "green",
+                description: `Разбанит вас за небольшую плату`,
+                price: 12321,
+                image: Pic5,
+                picture: GOLD
+            },
+        ]
+    },
+    Anarchy: {
+        privilege:[
+            {
+                title: "Мать админа Анархии",
+                titleColor: "green",
+                description: `Разбанит вас за небольшую плату`,
+                price: 0,
+                image: Pic5,
+                picture: EMERALD
+            },
+            {
+                title: "Мать админа Анархии",
+                titleColor: "green",
+                description: `Разбанит вас за небольшую плату`,
+                price: 21316,
+                image: Pic5,
+                picture: GOLD
+            },
+            {
+                title: "Мать админа Анархии",
+                titleColor: "green",
+                description: `Разбанит вас за небольшую плату`,
+                price: 0,
+                image: Pic5,
+                picture: IRON
+            },
+            {
+                title: "Мать админа Анархии",
+                titleColor: "green",
+                description: `Разбанит вас за небольшую плату`,
+                price: 0,
+                image: Pic5,
+                picture: DIAMOND
+            },
+            {
+                title: "Мать админа Анархии",
+                titleColor: "green",
+                description: `Разбанит вас за небольшую плату`,
+                price: 0,
+                image: Pic5,
+                picture: IRON
+            }
+            ],
+        goods:[
+            {
+                title: "Мать админа",
+                titleColor: "green",
+                description: `Разбанит вас за небольшую плату`,
+                price: 0,
+                image: Pic5,
+                picture: IRON
+            }
+        ]
     }
-];
+}

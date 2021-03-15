@@ -1,16 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import Header from "./Components/Header";
 import Donate from './Components/Donate';
-import Footer from "./Components/Footer";
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-      <Header />
     <Donate />
-    <Footer />
   </React.StrictMode>,
   document.getElementById('root')
 );
