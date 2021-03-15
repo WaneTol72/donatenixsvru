@@ -242,6 +242,30 @@ evoker
                 image: Pic5,
                 picture: GOLD
             },
+            {
+                title: "Мать Виктора шлюха",
+                titleColor: "green",
+                description: `Разбанит вас за небольшую плату`,
+                price: 12321,
+                image: Pic5,
+                picture: GOLD
+            },
+            {
+                title: "Мать Виктора шлюха",
+                titleColor: "green",
+                description: `Разбанит вас за небольшую плату`,
+                price: 12321,
+                image: Pic5,
+                picture: GOLD
+            },
+            {
+                title: "Мать Виктора шлюха",
+                titleColor: "green",
+                description: `Разбанит вас за небольшую плату`,
+                price: 12321,
+                image: Pic5,
+                picture: GOLD
+            }
         ]
     },
     Anarchy: {
