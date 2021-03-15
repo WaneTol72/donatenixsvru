@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.css": "/donatenixsvru/static/css/main.21e7b437.chunk.css",
+    "main.js": "/donatenixsvru/static/js/main.3b22c308.chunk.js",
+    "main.js.map": "/donatenixsvru/static/js/main.3b22c308.chunk.js.map",
+    "runtime-main.js": "/donatenixsvru/static/js/runtime-main.e102fa2d.js",
+    "runtime-main.js.map": "/donatenixsvru/static/js/runtime-main.e102fa2d.js.map",
+    "static/js/2.520e7d53.chunk.js": "/donatenixsvru/static/js/2.520e7d53.chunk.js",
+    "static/js/2.520e7d53.chunk.js.map": "/donatenixsvru/static/js/2.520e7d53.chunk.js.map",
+    "static/js/3.5ba21edd.chunk.js": "/donatenixsvru/static/js/3.5ba21edd.chunk.js",
+    "static/js/3.5ba21edd.chunk.js.map": "/donatenixsvru/static/js/3.5ba21edd.chunk.js.map",
+    "index.html": "/donatenixsvru/index.html",
+    "static/css/main.21e7b437.chunk.css.map": "/donatenixsvru/static/css/main.21e7b437.chunk.css.map",
+    "static/js/2.520e7d53.chunk.js.LICENSE.txt": "/donatenixsvru/static/js/2.520e7d53.chunk.js.LICENSE.txt",
+    "static/media/BARA.b0cdba31.webp": "/donatenixsvru/static/media/BARA.b0cdba31.webp",
+    "static/media/BARON.95a3379a.webp": "/donatenixsvru/static/media/BARON.95a3379a.webp",
+    "static/media/DIAMOND.ec1ac516.webp": "/donatenixsvru/static/media/DIAMOND.ec1ac516.webp",
+    "static/media/DIS.ee60f569.webp": "/donatenixsvru/static/media/DIS.ee60f569.webp",
+    "static/media/EMERALD.aca3bab0.webp": "/donatenixsvru/static/media/EMERALD.aca3bab0.webp",
+    "static/media/GER.e10fa204.webp": "/donatenixsvru/static/media/GER.e10fa204.webp",
+    "static/media/GOLD.dcc31225.webp": "/donatenixsvru/static/media/GOLD.dcc31225.webp",
+    "static/media/GRAF.d43596dc.webp": "/donatenixsvru/static/media/GRAF.d43596dc.webp",
+    "static/media/INST.00974347.webp": "/donatenixsvru/static/media/INST.00974347.webp",
+    "static/media/IRON.f39db403.webp": "/donatenixsvru/static/media/IRON.f39db403.webp",
+    "static/media/LEG.134669c8.webp": "/donatenixsvru/static/media/LEG.134669c8.webp",
+    "static/media/VITEK.a28c8426.webp": "/donatenixsvru/static/media/VITEK.a28c8426.webp",
+    "static/media/VK.3b8ad443.webp": "/donatenixsvru/static/media/VK.3b8ad443.webp",
+    "static/media/WANE.63f1a2b7.webp": "/donatenixsvru/static/media/WANE.63f1a2b7.webp",
+    "static/media/pic5.6f621dcc.webp": "/donatenixsvru/static/media/pic5.6f621dcc.webp",
+    "static/media/server.8ccb2477.webp": "/donatenixsvru/static/media/server.8ccb2477.webp"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e102fa2d.js",
+    "static/js/2.520e7d53.chunk.js",
+    "static/css/main.21e7b437.chunk.css",
+    "static/js/main.3b22c308.chunk.js"
+  ]
+}
