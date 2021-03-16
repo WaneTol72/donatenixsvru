@@ -1,9 +1,5 @@
 import '../Donate.scss';
 import {Card, Col, Image, Nav, Row} from "react-bootstrap";
-import DIAMOND from "../logo/DIAMOND.webp";
-import GOLD from "../logo/GOLD.webp";
-import IRON from "../logo/IRON.webp";
-import EMERALD from "../logo/EMERALD.webp";
 import ModalWindow from "./ModalWindow";
 import React, {Component} from "react";
 import Header from "./Header";
