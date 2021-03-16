@@ -1,8 +1,11 @@
 import '../Donate.scss';
 import {Card, Col, Image, Nav, Row} from "react-bootstrap";
-import { products } from "../description.js"
+import DIAMOND from "../logo/DIAMOND.webp";
+import GOLD from "../logo/GOLD.webp";
+import IRON from "../logo/IRON.webp";
+import EMERALD from "../logo/EMERALD.webp";
 import ModalWindow from "./ModalWindow";
-import React from "react";
+import React, {Component} from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import {
@@ -10,61 +13,42 @@ import {
     Switch,
     Route,
     NavLink,
-    useParams,
-    useRouteMatch
+    useRouteMatch, BrowserRouter, useParams
 } from "react-router-dom";
 
-function Card1(props) {
-    let array
-    let Cards
-    console.log(props.server)
-    console.log(props.cat)
-    switch(props.server) {
-        case "/classic":
-            switch(props.cat) {
-                case "resources":
-                    array = products.Classic.goods
-                    break
-                case "privilege":
-                    array = products.Classic.privilege
-                    break
-                default:
-                    array = products.Classic.privilege.concat(products.Classic.goods);
+function Cards(props) {
+    let { privilegeId } = useParams();
+    console.log(props.object)
+    console.log(privilegeId)
+    if (Array.isArray(props.object.privilege)) {
+        function cat() {
+            const arrayKey = Object.keys(props.object)
+            if (privilegeId === "all") {
+                const arrayKeyC = arrayKey.map((variant, idx) => {
+                    return Object.assign(props.object[variant])
+                })
+                let array = [].concat.apply([], arrayKeyC);
+                console.log(array)
+                return array
             }
-            break
-        case "/anarchy":
-            switch(props.cat) {
-                case "resources":
-                    array = products.Anarchy.goods
-                    break
-                case "privilege":
-                    array = products.Anarchy.privilege
-                    break
-                default:
-                    array = products.Anarchy.privilege.concat(products.Anarchy.goods);
+            else {
+                if (props.object[privilegeId]) {
+                    const arrayKeyC = Object.assign(props.object[privilegeId])
+                    let array = [].concat.apply([], arrayKeyC);
+                    console.log(array)
+                    return array
+                }
+                else {
+                    return [{name: "пусто"}]
+                }
             }
-            break
-        case "/creative":
-            switch(props.cat) {
-                case "resources":
-                    array = products.Creative.goods
-                    break
-                case "privilege":
-                    array = products.Creative.privilege
-                    break
-                default:
-                    array = products.Creative.privilege.concat(products.Creative.goods);
             }
-            break
-        default:
-            array = products.Classic.goods
-    }
-         Cards = array.map((variant, idx) => (
+        let Cards = cat().map((variant, idx) => (
             <Col lg={6} key={idx} >
                 <Card
                     className="mb-4 w-100"
                 >
-                    <Card.Header className=" font-weight-lighter text-white black h4">{variant.title}</Card.Header>
+                    <Card.Header className=" font-weight-lighter text-white black h4">{variant.name}</Card.Header>
                     <Card.Body className="text-left">
 
                         <Row>
@@ -72,16 +56,14 @@ function Card1(props) {
                                 <Card.Text className="font-weight-bold">{variant.price}.00 ₽</Card.Text>
                                 <ModalWindow
                                     titleColor={variant.titleColor}
-                                    title={variant.title}
-                                    description={variant.description}
-                                    perks={variant.perks}
-                                    commands={variant.commands}
-                                    pets={variant.pets}
+                                    title={variant.name}
+                                    description={variant.shortdescr}
+                                    descr={variant.descr}
                                     price={variant.price}
-                                    picture={variant.picture}/>
+                                    picture={variant.iconurl}/>
                             </Col>
                             <Col lg={4}><Image
-                                src={variant.picture}
+                                src={"/../logo/EMERALD.webp"}
                                 height={90}
                             /></Col>
                         </Row>
@@ -89,15 +71,52 @@ function Card1(props) {
                     </Card.Body>
                 </Card>
             </Col>
-        ));
-        return Cards;
+        ))
+        return Cards
+    } else {
+        return(
+            <>
+                <p>Пусто</p>
+        </>
+        )
+    }
+}
+const url = "https://api.nixsv.ru/sql.php?server=";
+class Card1 extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [{}],
+            server: props.server
+        }
+    }
+    async componentDidMount() {
+        const server = this.state.server === "/classic" ? "classic": this.state.server === "/creative" ? "creative" : this.state.server === "/anarchy" ? "anarchy" : "classic"
+        async function serverStatus(url) {
+            try {
+                console.log("Запрос JSON... " + url + server);
+                const response = await fetch(url + server);
+                const data = await response.json();
+                console.log(data.goods);
+                return data.goods
+            } catch (err) {
+                console.error('Ошибка:', err);
+            }
+        }
+        await this.setState({data: await serverStatus(url)})
+    }
+
+    render() {
+    return (
+        <Cards object={this.state.data} />
+    );
+ }
 }
 function Magaz(props) {
-    let { privilegeId } = useParams();
     return (
             <div className="pr-4 pl-4 pt-2 w-50 h-50 bg1  mb-5 mr-auto ml-auto">
                 <Row>
-                    <Card1 server={props.server} cat={privilegeId}/>
+                    <Card1 server={props.server} />
                 </Row>
             </div>
     )
@@ -105,19 +124,20 @@ function Magaz(props) {
 
 function Products() {
     let { path, url } = useRouteMatch();
-    console.log("Path ", path, "url ", url)
     return (
         <>
         <div className="mt-2 d-flex mr-auto ml-auto">
             <Nav className="pb-1 mr-auto ml-auto">
                 <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white NavButton1"  to={`${url}/all`}>ВСЕ</NavLink>
-                <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white NavButton1" to={`${url}/resources`}>РЕСУРСЫ</NavLink>
                 <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white NavButton1" to={`${url}/privilege`}>ПРИВИЛЕГИИ</NavLink>
+                <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white NavButton1" to={`${url}/key`}>КЛЮЧИ ОТ КЕЙСОВ</NavLink>
+                <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white NavButton1" to={`${url}/kit`}>КИТ СТАРТЫ</NavLink>
+
             </Nav>
         </div>
     <Switch>
         <Route path={`${path}/:privilegeId`}>
-            <Magaz server={url}/>
+            <Magaz server={path}/>
         </Route>
     </Switch>
     </>
@@ -127,7 +147,7 @@ function Donate() {
 
         return (
             <>
-                <Router>
+                <BrowserRouter>
                 <Header />
                     <main className="text-center ">
                     <Switch>
@@ -143,7 +163,7 @@ function Donate() {
                     </Switch>
                     </main>
                 <Footer />
-                </Router>
+                </BrowserRouter>
             </>
 );
 }

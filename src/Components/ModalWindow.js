@@ -1,4 +1,4 @@
-import {Modal, Button, Image, Row, Col, Accordion, Card, Form, InputGroup} from 'react-bootstrap';
+import {Modal, Button, Image, Row, Col, Accordion, Card, Form} from 'react-bootstrap';
 import {Component} from "react";
 
 
@@ -7,8 +7,9 @@ class ModalWindow extends Component {
         super(props);
         this.state = {
             show: false,
+            price: props.price,
             nickname: '',
-            email: 'wanetols@gmail.com',
+            email: 'test@gmail.com',
         };
         this.handleChangeNick = this.handleChangeNick.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
@@ -21,16 +22,16 @@ class ModalWindow extends Component {
             this.setState({nickname: event.target.value});
     }
     handleSubmit(event) {
+        event.preventDefault()
         if (this.state.nickname !== '') {
-            fetch("https://api.nixsv.ru/generatelink.php?nickname=" + this.state.nickname + "&sum=" + this.props.price + "&email=" + this.state.email)
+            fetch("https://api.nixsv.ru/generatelink.php?nickname=" + this.state.nickname + "&sum=" + this.state.price + "&email=" + this.state.email)
                 .then(
                     (response) => {return response.json()})
                 .then(
                     (data) => {
                         console.log(data)
                         document.location.href = data.url
-                    });
-
+                    }).catch((err) => console.log(err));
         } else {
             alert("пидарок, заполни никнейм или сумму")
         }
@@ -64,41 +65,17 @@ class ModalWindow extends Component {
                         <h5>Описание:</h5>
                         <p className="text-monospace">{this.props.description}</p>
                         {
-                            this.props.perks && this.props.commands && this.props.pets ?
+                            this.props.descr ?
                             <Accordion>
                                 <Card >
                                     <Card.Header className="text-center">
                                         <Accordion.Toggle className="font-weight-bold" as={Button} variant="link" eventKey="0">
-                                            Перки:
+                                            Описание
                                         </Accordion.Toggle>
                                     </Card.Header>
                                     <Accordion.Collapse eventKey="0">
                                         <Card.Body className="text-left">
-                                            <p style={{whiteSpace: "pre-line"}}>{this.props.perks}</p>
-                                        </Card.Body>
-                                    </Accordion.Collapse>
-                                </Card>
-                                <Card >
-                                    <Card.Header className="text-center">
-                                        <Accordion.Toggle className="font-weight-bold" as={Button} variant="link" eventKey="1">
-                                            Команды:
-                                        </Accordion.Toggle>
-                                    </Card.Header>
-                                    <Accordion.Collapse eventKey="1">
-                                        <Card.Body className="text-left">
-                                            <p style={{whiteSpace: "pre-line"}}>{this.props.commands}</p>
-                                        </Card.Body>
-                                    </Accordion.Collapse>
-                                </Card>
-                                <Card>
-                                    <Card.Header className="text-center">
-                                        <Accordion.Toggle className="font-weight-bold" as={Button} variant="link" eventKey="2">
-                                            Петы:
-                                        </Accordion.Toggle>
-                                    </Card.Header>
-                                    <Accordion.Collapse eventKey="2">
-                                        <Card.Body className="text-left">
-                                            <p style={{whiteSpace: "pre-line"}}>{this.props.pets}</p>
+                                            <p style={{whiteSpace: "pre-line"}}>{this.props.descr}</p>
                                         </Card.Body>
                                     </Accordion.Collapse>
                                 </Card>
@@ -134,7 +111,14 @@ class ModalWindow extends Component {
                         </Row>
                     </Modal.Body>
                     <Modal.Footer className="d-block text-center">
-                        <Button size="lg"   type="submit" variant="dark">Оплатить</Button>
+                        <Button size="lg"  type="submit" variant="dark">Оплатить</Button>
+                        <Form.Check
+                            className="d-inline-block"
+                            type="checkbox"
+                            id="autoSizingCheck"
+                            label="Remember me"
+                            required
+                        />
                     </Modal.Footer>
                 </form>
                 </Modal>
