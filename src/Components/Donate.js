@@ -1,23 +1,22 @@
 import '../Donate.scss';
 import {Card, Col, Image, Nav, Row} from "react-bootstrap";
 import ModalWindow from "./ModalWindow";
-import React, {Component} from "react";
+import React, {Component, useState} from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    NavLink,
-    useRouteMatch, BrowserRouter, useParams
-} from "react-router-dom";
+import {Switch, Route, NavLink, useRouteMatch, useParams, HashRouter} from "react-router-dom";
 
-function Cards(props) {
+function GenCards(props) {
+    const [loading, setLoading] = useState(true);
+    const imageLoaded = () => {
+            setLoading(false);
+    }
     let { privilegeId } = useParams();
+    if (props.object !== undefined) {
         function cat() {
             const arrayKey = Object.keys(props.object)
             if (privilegeId === "all") {
-                const arrayKeyC = arrayKey.map((variant, idx) => {
+                const arrayKeyC = arrayKey.map((variant) => {
                     return Object.assign(props.object[variant])
                 })
                 return [].concat.apply([], arrayKeyC);
@@ -31,10 +30,11 @@ function Cards(props) {
                     return [{name: "пусто"}]
                 }
             }
-            }
+        }
+
         return (
             cat().map((variant, idx) => (
-                <Col lg={6} key={idx} >
+                <Col lg={6} key={idx}>
                     <Card
                         className="mb-4 w-100"
                     >
@@ -52,59 +52,68 @@ function Cards(props) {
                                         price={variant.price}
                                         picture={variant.iconurl}/>
                                 </Col>
-                                <Col lg={4}><Image
-                                    src={variant.iconurl}
-                                    height={90}
-                                /></Col>
+                                <Col lg={4}>
+                                    <div className="lds-ellipsis" style={{display: loading ? "block" : "none"}}>
+                                        <div/>
+                                        <div/>
+                                        <div/>
+                                        <div/>
+                                    </div>
+                                    <div style={{display: loading ? "none" : "block"}}>
+                                        <Image
+                                            src={variant.iconurl}
+                                            height={90}
+                                            onLoad={imageLoaded}
+                                        />
+                                    </div>
+                                </Col>
                             </Row>
 
                         </Card.Body>
                     </Card>
                 </Col>
             ))
-        )
+        );
+    }
+    else {
+        return <p>Нет товаров</p>
+    }
 }
-const url = "https://api.nixsv.ru/sql.php?server=";
-class Card1 extends Component {
+
+const url = "https://api.nixsv.ru/sql.php?";
+
+class Cards extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [{
-                iconurl: "../logo/GOLD.webp"
-            }],
             server: props.server
         }
     }
     async componentDidMount() {
         const server = this.state.server === "/classic" ? "classic": this.state.server === "/creative" ? "creative" : this.state.server === "/anarchy" ? "anarchy" : "classic"
-        async function serverStatus(url) {
+        async function getGoods(url) {
             try {
-                console.log("Запрос JSON... " + url + server);
-                const response = await fetch(url + server);
+                console.log(`Запрос JSON... ${url}action=getgoods&server=${server}`);
+                const response = await fetch(`${url}action=getgoods&server=${server}`);
                 const data = await response.json();
-                console.log(data.goods);
-                return data.goods
+                if (data.response !== "error") {
+                    console.log("Статус ответа: " + data.response + ", данные получены успешно");
+                    return data.goods
+                }
             } catch (err) {
                 console.error('Ошибка:', err);
             }
         }
-        await this.setState({data: await serverStatus(url)})
+        await this.setState({data: await getGoods(url)})
     }
 
     render() {
     return (
-        <Cards object={this.state.data} />
+        <>
+            <GenCards object={this.state.data} />
+        </>
     );
  }
-}
-function Magaz(props) {
-    return (
-            <div className="pr-4 pl-4 pt-2 w-50 h-50 bg1  mb-5 mr-auto ml-auto">
-                <Row>
-                    <Card1 server={props.server} />
-                </Row>
-            </div>
-    )
 }
 
 function Products() {
@@ -117,39 +126,44 @@ function Products() {
                 <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white NavButton1" to={`${url}/privilege`}>ПРИВИЛЕГИИ</NavLink>
                 <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white NavButton1" to={`${url}/key`}>КЛЮЧИ ОТ КЕЙСОВ</NavLink>
                 <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white NavButton1" to={`${url}/kit`}>КИТ СТАРТЫ</NavLink>
-
             </Nav>
         </div>
     <Switch>
         <Route path={`${path}/:privilegeId`}>
-            <Magaz server={path}/>
+            <div className="pr-4 pl-4 pt-2 w-50 h-50 bg1  mb-5 mr-auto ml-auto">
+                <Row>
+                    <Cards server={path} />
+                </Row>
+            </div>
         </Route>
     </Switch>
     </>
     )
 }
-function Donate() {
+    class Donate extends Component {
 
+    render() {
         return (
             <>
-                <BrowserRouter>
-                <Header />
+                <HashRouter>
+                    <Header />
                     <main className="text-center ">
-                    <Switch>
-                        <Route path="/classic">
-                            <Products/>
-                        </Route>
-                        <Route path="/creative">
-                            <Products/>
-                        </Route>
-                        <Route path="/anarchy">
-                            <Products/>
-                        </Route>
-                    </Switch>
+                        <Switch>
+                            <Route path="/classic">
+                                <Products/>
+                            </Route>
+                            <Route path="/creative">
+                                <Products/>
+                            </Route>
+                            <Route path="/anarchy">
+                                <Products/>
+                            </Route>
+                        </Switch>
                     </main>
-                <Footer />
-                </BrowserRouter>
+                    <Footer />
+                </HashRouter>
             </>
-);
+        )
+    }
 }
 export default Donate;
