@@ -18,75 +18,64 @@ import {
 
 function Cards(props) {
     let { privilegeId } = useParams();
-    console.log(props.object)
-    console.log(privilegeId)
-    if (Array.isArray(props.object.privilege)) {
         function cat() {
             const arrayKey = Object.keys(props.object)
             if (privilegeId === "all") {
                 const arrayKeyC = arrayKey.map((variant, idx) => {
                     return Object.assign(props.object[variant])
                 })
-                let array = [].concat.apply([], arrayKeyC);
-                console.log(array)
-                return array
+                return [].concat.apply([], arrayKeyC);
             }
             else {
                 if (props.object[privilegeId]) {
                     const arrayKeyC = Object.assign(props.object[privilegeId])
-                    let array = [].concat.apply([], arrayKeyC);
-                    console.log(array)
-                    return array
+                    return [].concat.apply([], arrayKeyC);
                 }
                 else {
                     return [{name: "пусто"}]
                 }
             }
             }
-        let Cards = cat().map((variant, idx) => (
-            <Col lg={6} key={idx} >
-                <Card
-                    className="mb-4 w-100"
-                >
-                    <Card.Header className=" font-weight-lighter text-white black h4">{variant.name}</Card.Header>
-                    <Card.Body className="text-left">
+        return (
+            cat().map((variant, idx) => (
+                <Col lg={6} key={idx} >
+                    <Card
+                        className="mb-4 w-100"
+                    >
+                        <Card.Header className=" font-weight-lighter text-white black h4">{variant.name}</Card.Header>
+                        <Card.Body className="text-left">
 
-                        <Row>
-                            <Col lg={8}>
-                                <Card.Text className="font-weight-bold">{variant.price}.00 ₽</Card.Text>
-                                <ModalWindow
-                                    titleColor={variant.titleColor}
-                                    title={variant.name}
-                                    description={variant.shortdescr}
-                                    descr={variant.descr}
-                                    price={variant.price}
-                                    picture={variant.iconurl}/>
-                            </Col>
-                            <Col lg={4}><Image
-                                src={"/../logo/EMERALD.webp"}
-                                height={90}
-                            /></Col>
-                        </Row>
+                            <Row>
+                                <Col lg={8}>
+                                    <Card.Text className="font-weight-bold">{variant.price}.00 ₽</Card.Text>
+                                    <ModalWindow
+                                        titleColor={variant.titleColor}
+                                        title={variant.name}
+                                        description={variant.shortdescr}
+                                        descr={variant.descr}
+                                        price={variant.price}
+                                        picture={variant.iconurl}/>
+                                </Col>
+                                <Col lg={4}><Image
+                                    src={variant.iconurl}
+                                    height={90}
+                                /></Col>
+                            </Row>
 
-                    </Card.Body>
-                </Card>
-            </Col>
-        ))
-        return Cards
-    } else {
-        return(
-            <>
-                <p>Пусто</p>
-        </>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            ))
         )
-    }
 }
 const url = "https://api.nixsv.ru/sql.php?server=";
 class Card1 extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [{}],
+            data: [{
+                iconurl: "../logo/GOLD.webp"
+            }],
             server: props.server
         }
     }
