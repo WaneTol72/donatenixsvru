@@ -10,13 +10,11 @@ function GenCards(props) {
 
     const [loading, setLoading] = useState(true);
     const imageLoaded = () => {setLoading(false)}
-
     const { privilegeId } = useParams();
-
     if (props.object !== undefined) {
         function cat() {
             const arrayKey = Object.keys(props.object)
-            if (privilegeId === "all") {
+            if (privilegeId === "all" || !privilegeId) {
                 const arrayKeyC = arrayKey.map((variant) => {
                     return Object.assign(props.object[variant])
                 })
@@ -123,10 +121,10 @@ function Products() {
         <>
         <div className="mt-2 d-flex mr-auto ml-auto">
             <Nav className="pb-1 mr-auto ml-auto">
-                <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white NavButton1"  to={`${url}/all`}>ВСЕ</NavLink>
-                <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white NavButton1" to={`${url}/privilege`}>ПРИВИЛЕГИИ</NavLink>
-                <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white NavButton1" to={`${url}/key`}>КЛЮЧИ ОТ КЕЙСОВ</NavLink>
-                <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white NavButton1" to={`${url}/kit`}>КИТ СТАРТЫ</NavLink>
+                <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white CatButton"  to={`${url}/all`}>ВСЕ</NavLink>
+                <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white CatButton" to={`${url}/privilege`}>ПРИВИЛЕГИИ</NavLink>
+                <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white CatButton" to={`${url}/key`}>КЛЮЧИ ОТ КЕЙСОВ</NavLink>
+                <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white CatButton" to={`${url}/kit`}>КИТ СТАРТЫ</NavLink>
             </Nav>
         </div>
     <Switch>

@@ -23,9 +23,9 @@ class Header extends Component{
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav" className="mt-auto">
                     <Nav className="ml-auto mr-auto mt-auto text-white pb-1" >
-                            <NavLink className="nav-link text-white h5 font-weight-light NavButton mb-0" activeClassName="bottom-border" to="/classic">КЛАССИК</NavLink>
-                            <NavLink className="nav-link text-white h5 font-weight-light NavButton ml-4 mb-0 mr-4" activeClassName="bottom-border" to="/creative">КРЕАТИВ</NavLink>
-                            <NavLink className="nav-link text-white h5 font-weight-light NavButton mb-0" activeClassName="bottom-border" to="/anarchy">АНАРХИЯ</NavLink>
+                            <NavLink className="nav-link text-white h5 font-weight-light NavButton mb-0" activeClassName="bottom-border" to="/classic/all">КЛАССИК</NavLink>
+                            <NavLink className="nav-link text-white h5 font-weight-light NavButton ml-4 mb-0 mr-4" activeClassName="bottom-border" to="/creative/all">КРЕАТИВ</NavLink>
+                            <NavLink className="nav-link text-white h5 font-weight-light NavButton mb-0" activeClassName="bottom-border" to="/anarchy/all">АНАРХИЯ</NavLink>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
