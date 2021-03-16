@@ -1,17 +1,18 @@
-import '../Donate.scss';
+import React, {Component, useState} from "react";
+import {Switch, Route, NavLink, useRouteMatch, useParams, HashRouter} from "react-router-dom";
 import {Card, Col, Image, Nav, Row} from "react-bootstrap";
 import ModalWindow from "./ModalWindow";
-import React, {Component, useState} from "react";
 import Header from "./Header";
 import Footer from "./Footer";
-import {Switch, Route, NavLink, useRouteMatch, useParams, HashRouter} from "react-router-dom";
+import '../Donate.scss';
 
 function GenCards(props) {
+
     const [loading, setLoading] = useState(true);
-    const imageLoaded = () => {
-            setLoading(false);
-    }
-    let { privilegeId } = useParams();
+    const imageLoaded = () => {setLoading(false)}
+
+    const { privilegeId } = useParams();
+
     if (props.object !== undefined) {
         function cat() {
             const arrayKey = Object.keys(props.object)
@@ -27,7 +28,7 @@ function GenCards(props) {
                     return [].concat.apply([], arrayKeyC);
                 }
                 else {
-                    return [{name: "пусто"}]
+                    return [{name: "Ошибка"}]
                 }
             }
         }
