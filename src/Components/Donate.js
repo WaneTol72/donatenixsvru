@@ -16,12 +16,9 @@ function GenCards(props) {
             return (
                 props.arr.map((variant, idx) => (
                     <Col lg={6} key={idx}>
-                        <Card
-                            className="mb-4 w-100"
-                        >
+                        <Card className="mb-4 w-100">
                             <Card.Header className=" font-weight-lighter text-white black h4">{variant.name}</Card.Header>
                             <Card.Body className="text-left">
-
                                 <Row>
                                     <Col lg={8}>
                                         <Card.Text className="font-weight-bold">{variant.price}.00 ₽</Card.Text>
@@ -43,13 +40,13 @@ function GenCards(props) {
                                         <div style={{display: loading ? "none" : "block"}}>
                                             <Image
                                                 src={variant.iconurl}
-                                                height={90}
+                                                height="auto"
+                                                width="90"
                                                 onLoad={imageLoaded}
                                             />
                                         </div>
                                     </Col>
                                 </Row>
-
                             </Card.Body>
                         </Card>
                     </Col>
@@ -119,46 +116,12 @@ class Cards extends Component {
     }
 
     render() {
-    return (
-        <>
-            <GenCards object={this.state.data} />
-        </>
-    );
+    return (<GenCards object={this.state.data} />);
  }
 }
-class Cards2 extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            server: props.server
-        }
-    }
-    async componentDidMount() {
-        console.log(this.state.server)
-        const server = this.state.server === "/classic" ? "classic": this.state.server === "/creative" ? "creative" : this.state.server === "/anarchy" ? "anarchy" : "classic"
-        async function getGoods(url) {
-            try {
-                console.log(`Запрос JSON... ${url}action=getgoods&server=${server}`);
-                const response = await fetch(`${url}action=getgoods&server=${server}`);
-                const data = await response.json();
-                if (data.response !== "error") {
-                    console.log("Статус ответа: " + data.response + ", данные получены успешно");
-                    return data.goods
-                }
-            } catch (err) {
-                console.error('Ошибка:', err);
-            }
-        }
-        await this.setState({data: await getGoods(url)})
-    }
-
+class Text extends Component {
     render() {
-        return (
-            <>
-                <p>Ты петуч</p>
-
-            </>
-        );
+        return (<p>Ты петуч</p>);
     }
 }
 function Products() {
@@ -175,7 +138,7 @@ function Products() {
         </div>
     <Switch>
         <Route exact path={path}>
-            <Cards2 server={path} />
+            <Text server={path} />
         </Route>
         <Route path={`${path}/:privilegeId`}>
             <div className="pr-4 pl-4 pt-2 w-50 h-50 bg1  mb-5 mr-auto ml-auto">
@@ -191,7 +154,6 @@ function Products() {
     class Donate extends Component {
     render() {
         return (
-            <>
                 <HashRouter>
                     <Header />
                     <main className="text-center ">
@@ -209,7 +171,6 @@ function Products() {
                     </main>
                     <Footer />
                 </HashRouter>
-            </>
         )
     }
 }
