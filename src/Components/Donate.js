@@ -12,6 +12,50 @@ function GenCards(props) {
     const imageLoaded = () => {setLoading(false)}
     const { privilegeId } = useParams();
     if (props.object !== undefined) {
+        function Carrrd(props)  {
+            return (
+                props.arr.map((variant, idx) => (
+                    <Col lg={6} key={idx}>
+                        <Card
+                            className="mb-4 w-100"
+                        >
+                            <Card.Header className=" font-weight-lighter text-white black h4">{variant.name}</Card.Header>
+                            <Card.Body className="text-left">
+
+                                <Row>
+                                    <Col lg={8}>
+                                        <Card.Text className="font-weight-bold">{variant.price}.00 ₽</Card.Text>
+                                        <ModalWindow
+                                            titleColor={variant.titleColor}
+                                            title={variant.name}
+                                            description={variant.shortdescr}
+                                            descr={variant.descr}
+                                            price={variant.price}
+                                            picture={variant.iconurl}/>
+                                    </Col>
+                                    <Col lg={4}>
+                                        <div className="lds-ellipsis" style={{display: loading ? "block" : "none"}}>
+                                            <div/>
+                                            <div/>
+                                            <div/>
+                                            <div/>
+                                        </div>
+                                        <div style={{display: loading ? "none" : "block"}}>
+                                            <Image
+                                                src={variant.iconurl}
+                                                height={90}
+                                                onLoad={imageLoaded}
+                                            />
+                                        </div>
+                                    </Col>
+                                </Row>
+
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                ))
+            )
+        }
         function cat() {
             const arrayKey = Object.keys(props.object)
             if (privilegeId === "all" || !privilegeId) {
@@ -20,59 +64,26 @@ function GenCards(props) {
                 })
                 return [].concat.apply([], arrayKeyC);
             }
-            else {
-                if (props.object[privilegeId]) {
+            else if (props.object[privilegeId]) {
                     const arrayKeyC = Object.assign(props.object[privilegeId])
                     return [].concat.apply([], arrayKeyC);
-                }
-                else {
-                    return [{name: "Ошибка"}]
-                }
+
+            }
+            else {
+                return {err: "err"}
             }
         }
-
-        return (
-            cat().map((variant, idx) => (
-                <Col lg={6} key={idx}>
-                    <Card
-                        className="mb-4 w-100"
-                    >
-                        <Card.Header className=" font-weight-lighter text-white black h4">{variant.name}</Card.Header>
-                        <Card.Body className="text-left">
-
-                            <Row>
-                                <Col lg={8}>
-                                    <Card.Text className="font-weight-bold">{variant.price}.00 ₽</Card.Text>
-                                    <ModalWindow
-                                        titleColor={variant.titleColor}
-                                        title={variant.name}
-                                        description={variant.shortdescr}
-                                        descr={variant.descr}
-                                        price={variant.price}
-                                        picture={variant.iconurl}/>
-                                </Col>
-                                <Col lg={4}>
-                                    <div className="lds-ellipsis" style={{display: loading ? "block" : "none"}}>
-                                        <div/>
-                                        <div/>
-                                        <div/>
-                                        <div/>
-                                    </div>
-                                    <div style={{display: loading ? "none" : "block"}}>
-                                        <Image
-                                            src={variant.iconurl}
-                                            height={90}
-                                            onLoad={imageLoaded}
-                                        />
-                                    </div>
-                                </Col>
-                            </Row>
-
-                        </Card.Body>
-                    </Card>
-                </Col>
-            ))
-        );
+        if (!cat().err) {
+            return (
+                <>
+                    <Carrrd arr={cat()} />
+                </>
+            );
+        } else {
+            return (
+                <p>Нет товаров</p>
+            )
+        }
     }
     else {
         return <p>Нет товаров</p>
@@ -89,6 +100,7 @@ class Cards extends Component {
         }
     }
     async componentDidMount() {
+        console.log(this.state.server)
         const server = this.state.server === "/classic" ? "classic": this.state.server === "/creative" ? "creative" : this.state.server === "/anarchy" ? "anarchy" : "classic"
         async function getGoods(url) {
             try {
@@ -114,7 +126,41 @@ class Cards extends Component {
     );
  }
 }
+class Cards2 extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            server: props.server
+        }
+    }
+    async componentDidMount() {
+        console.log(this.state.server)
+        const server = this.state.server === "/classic" ? "classic": this.state.server === "/creative" ? "creative" : this.state.server === "/anarchy" ? "anarchy" : "classic"
+        async function getGoods(url) {
+            try {
+                console.log(`Запрос JSON... ${url}action=getgoods&server=${server}`);
+                const response = await fetch(`${url}action=getgoods&server=${server}`);
+                const data = await response.json();
+                if (data.response !== "error") {
+                    console.log("Статус ответа: " + data.response + ", данные получены успешно");
+                    return data.goods
+                }
+            } catch (err) {
+                console.error('Ошибка:', err);
+            }
+        }
+        await this.setState({data: await getGoods(url)})
+    }
 
+    render() {
+        return (
+            <>
+                <p>Ты петуч</p>
+
+            </>
+        );
+    }
+}
 function Products() {
     let { path, url } = useRouteMatch();
     return (
@@ -128,6 +174,9 @@ function Products() {
             </Nav>
         </div>
     <Switch>
+        <Route exact path={path}>
+            <Cards2 server={path} />
+        </Route>
         <Route path={`${path}/:privilegeId`}>
             <div className="pr-4 pl-4 pt-2 w-50 h-50 bg1  mb-5 mr-auto ml-auto">
                 <Row>
@@ -140,7 +189,6 @@ function Products() {
     )
 }
     class Donate extends Component {
-
     render() {
         return (
             <>
