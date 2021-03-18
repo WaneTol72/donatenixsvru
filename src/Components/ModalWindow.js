@@ -1,5 +1,5 @@
 import {Modal, Button, Image, Row, Col, Accordion, Card, Form} from 'react-bootstrap';
-import {Component} from "react";
+import React, {Component} from "react";
 
 
 
@@ -74,7 +74,7 @@ class ModalWindow extends Component {
                                         <p className="text-monospace">{this.props.description}</p>
                                         {
                                             this.props.descr ?
-                                                <Accordion className="w-75 m-auto">
+                                                <Accordion className="m-auto">
                                                     <Card >
                                                         <Card.Header className="text-center">
                                                             <Accordion.Toggle className="font-weight-bold" as={Button} variant="link" eventKey="0">

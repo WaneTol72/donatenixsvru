@@ -41,8 +41,8 @@ function GenCards(props) {
                                         <div style={{display: loading ? "none" : "block"}}>
                                             <Image
                                                 src={variant.iconurl}
+                                                className="imgCard"
                                                 height="auto"
-                                                width="100"
                                                 onLoad={imageLoaded}
                                             />
                                         </div>
@@ -123,7 +123,7 @@ class Cards extends Component {
 }
 class Text extends Component {
     render() {
-        return (<iframe width="700" height="400" src="https://www.youtube.com/embed/iSrEluTj4PU?autoplay=1&controls=0"/>);
+        return (<p>И тут мб че будет)</p>);
     }
 }
 function Products() {
@@ -143,7 +143,7 @@ function Products() {
             <Text server={path} />
         </Route>
         <Route path={`${path}/:privilegeId`}>
-            <div className="pr-4 pl-4 pt-2 w-50 h-50 bg1  mb-5 mr-auto ml-auto">
+            <div className="pr-4 pl-4 pt-2 container-sm h-50 bg1 mb-5 mr-auto ml-auto">
                 <Row>
                     <Cards server={path} />
                 </Row>
@@ -160,6 +160,9 @@ function Products() {
                     <Header />
                     <main className="text-center ">
                         <Switch>
+                            <Route path="/home">
+                                <p>Что-то тут должно быть...</p>
+                            </Route>
                             <Route path="/classic">
                                 <Products/>
                             </Route>

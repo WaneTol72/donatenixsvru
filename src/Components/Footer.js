@@ -54,7 +54,7 @@ function open(url) {
 
 function Footer() {
         return (
-            <Container id="Footer" className="pt-5 pb-2 text-white mw-100 black">
+            <footer id="Footer" className="pt-5 pb-2 w-100 text-white mw-100 black">
                 <Row className="pr-4 pl-4">
                     <Col lg={2}>
                         <h2 className="mb-3">Контакты:</h2>
@@ -77,8 +77,8 @@ function Footer() {
                         <iframe title="Discord" src="https://discordapp.com/widget?id=447745228456198155&theme=dark" height="300" className="w-100" frameBorder="0"/>
                     </Col>
                 </Row>
-                <h5 className="text-center m-0">©2018-2021 Phoenix Project</h5>
-            </Container>
+                <h5 className="text-center m-0">©2018-2021 <span style={{color:"orange"}}>Phoenix</span> Project</h5>
+            </footer>
         );
 }
 
