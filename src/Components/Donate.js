@@ -28,6 +28,7 @@ function GenCards(props) {
                                             description={variant.shortdescr}
                                             descr={variant.descr}
                                             price={variant.price}
+                                            productid={variant.productid}
                                             picture={variant.iconurl}/>
                                     </Col>
                                     <Col lg={4}>
@@ -41,7 +42,7 @@ function GenCards(props) {
                                             <Image
                                                 src={variant.iconurl}
                                                 height="auto"
-                                                width="90"
+                                                width="100"
                                                 onLoad={imageLoaded}
                                             />
                                         </div>
@@ -59,6 +60,7 @@ function GenCards(props) {
                 const arrayKeyC = arrayKey.map((variant) => {
                     return Object.assign(props.object[variant])
                 })
+                console.log([].concat.apply([], arrayKeyC))
                 return [].concat.apply([], arrayKeyC);
             }
             else if (props.object[privilegeId]) {
@@ -106,7 +108,7 @@ class Cards extends Component {
                 const data = await response.json();
                 if (data.response !== "error") {
                     console.log("Статус ответа: " + data.response + ", данные получены успешно");
-                    return data.goods
+                    return data.body
                 }
             } catch (err) {
                 console.error('Ошибка:', err);
@@ -121,7 +123,7 @@ class Cards extends Component {
 }
 class Text extends Component {
     render() {
-        return (<p>Ты петуч</p>);
+        return (<iframe width="700" height="400" src="https://www.youtube.com/embed/iSrEluTj4PU?autoplay=1&controls=0"/>);
     }
 }
 function Products() {
