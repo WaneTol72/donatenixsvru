@@ -1,4 +1,4 @@
-import {Col, Container, Image, Row} from "react-bootstrap";
+import {Col, Image, Row} from "react-bootstrap";
 import VICTOR from '../logo/VITEK.webp';
 import WANE from '../logo/WANE.webp';
 import BARA from '../logo/BARA.webp';

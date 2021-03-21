@@ -6,13 +6,14 @@ import Header from "./Header";
 import Footer from "./Footer";
 import '../Donate.scss';
 
+
 function GenCards(props) {
 
     const [loading, setLoading] = useState(true);
     const imageLoaded = () => {setLoading(false)}
     const { privilegeId } = useParams();
     if (props.object !== undefined) {
-        function Carrrd(props)  {
+        function Cards(props)  {
             return (
                 props.arr.map((variant, idx) => (
                     <Col lg={6} key={idx}>
@@ -28,8 +29,9 @@ function GenCards(props) {
                                             description={variant.shortdescr}
                                             descr={variant.descr}
                                             price={variant.price}
-                                            productid={variant.productid}
+                                            shp_product_id={variant.shp_product_id}
                                             picture={variant.iconurl}/>
+                                            <p className="mb-0">{variant.producttype}</p>
                                     </Col>
                                     <Col lg={4}>
                                         <div className="lds-ellipsis" style={{display: loading ? "block" : "none"}}>
@@ -60,7 +62,6 @@ function GenCards(props) {
                 const arrayKeyC = arrayKey.map((variant) => {
                     return Object.assign(props.object[variant])
                 })
-                console.log([].concat.apply([], arrayKeyC))
                 return [].concat.apply([], arrayKeyC);
             }
             else if (props.object[privilegeId]) {
@@ -75,7 +76,7 @@ function GenCards(props) {
         if (!cat().err) {
             return (
                 <>
-                    <Carrrd arr={cat()} />
+                    <Cards arr={cat()} />
                 </>
             );
         } else {
@@ -91,7 +92,8 @@ function GenCards(props) {
 
 const url = "https://api.nixsv.ru/sql.php?";
 
-class Cards extends Component {
+class CardSpawn extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -99,7 +101,6 @@ class Cards extends Component {
         }
     }
     async componentDidMount() {
-        console.log(this.state.server)
         const server = this.state.server === "/classic" ? "classic": this.state.server === "/creative" ? "creative" : this.state.server === "/anarchy" ? "anarchy" : "classic"
         async function getGoods(url) {
             try {
@@ -145,7 +146,7 @@ function Products() {
         <Route path={`${path}/:privilegeId`}>
             <div className="pr-4 pl-4 pt-2 container-sm h-50 bg1 mb-5 mr-auto ml-auto">
                 <Row>
-                    <Cards server={path} />
+                    <CardSpawn server={path} />
                 </Row>
             </div>
         </Route>

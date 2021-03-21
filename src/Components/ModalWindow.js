@@ -9,9 +9,9 @@ class ModalWindow extends Component {
         this.state = {
             show: false,
             showTerms: false,
-            productid: props.productid,
+            shp_product_id: props.shp_product_id,
             nickname: '',
-            email: 'test@gmail.com',
+            email: '',
         };
         this.handleChangeNick = this.handleChangeNick.bind(this);
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
@@ -21,29 +21,31 @@ class ModalWindow extends Component {
             this.setState({email: event.target.value});
     }
     handleChangeNick(event) {
-        console.log("https://api.nixsv.ru/generatelink.php?nickname=" + this.state.nickname + "&pid=" + this.state.productid + "&email=" + this.state.email)
+        console.log("https://api.nixsv.ru/generatelink.php?shp_nickname=" + this.state.nickname + "&shp_product_id=" + this.state.shp_product_id + "&email=" + this.state.email)
             this.setState({nickname: event.target.value});
     }
     handleSubmit(event) {
         event.preventDefault()
-        if (this.state.nickname !== '') {
-            fetch("https://api.nixsv.ru/generatelink.php?nickname=" + this.state.nickname + "&pid=" + this.state.productid + "&email=" + this.state.email)
+        if (this.state.nickname !== '' || this.state.shp_product_id !== '' || this.state.email !== '') {
+            fetch("https://api.nixsv.ru/generatelink.php?shp_nickname=" + this.state.nickname + "&shp_product_id=" + this.state.shp_product_id + "&email=" + this.state.email)
                 .then(
                     (response) => {return response.json()})
                 .then(
                     (data) => {
-                        console.log(data)
                         document.location.href = data.body.url
                     }).catch((err) => console.log(err));
         } else {
-            alert("пидарок, заполни никнейм или сумму")
+            alert("Ошибка, на Ваш адрес вызван ОМОН")
         }
     }
-    handleShowTerms = e => this.setState({showTerms: true});
-    handleShow = e => this.setState({show: true});
-    handleCloseTerms = e => this.setState({showTerms: false});
-    handleClose = e => this.setState({show: false});
+
+
+    handleShowTerms = () => this.setState({showTerms: true});
+    handleShow = () => this.setState({show: true});
+    handleCloseTerms = () => this.setState({showTerms: false});
+    handleClose = () => this.setState({show: false});
     render() {
+
         return (
             <>
                 <Button className="mt-2 black" size="md" variant="dark" onClick={this.handleShow}>КУПИТЬ</Button>
@@ -121,29 +123,61 @@ class ModalWindow extends Component {
                                     <Modal.Footer className="d-block text-center">
                                         <Form.Check className="d-block" type="checkbox" id="autoSizingCheck" required>
                                         <Form.Check.Input type="checkbox" />
-                                        <Form.Check.Label>Я согласен с <a onClick={this.handleShowTerms} style={{color: "blue", cursor: "pointer"}}>анальным</a> рабством</Form.Check.Label>
+                                        <Form.Check.Label>Я согласен с <span onClick={this.handleShowTerms} style={{color: "blue", cursor: "pointer"}}>анальным</span> рабством</Form.Check.Label>
                                     </Form.Check>
                                                 <Button size="lg"  type="submit" variant="dark">Оплатить</Button>
                                     </Modal.Footer>
                                 </form>
                             </> :
-                            <>
-                                <Modal.Header>
-                                    <Modal.Title>Пользовательское соглашение</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    Я гей
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant="dark" onClick={this.handleCloseTerms}>
-                                        Назад
-                                    </Button>
-                                </Modal.Footer>
-                            </>
+                            <Elua />
                 }
                 </Modal>
             </>
         );
+    }
+}
+class Elua extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            elua: ''
+        };
+    }
+    async componentDidMount() {
+        const eulaUrl = "https://api.nixsv.ru/sql.php?action=getvar&var=eula";
+        async function getElua(eulaUrl) {
+            try {
+                console.log(`Запрос JSON... ${eulaUrl}`);
+                const response = await fetch(eulaUrl);
+                const data = await response.json();
+                if (data.response !== "error") {
+                    console.log("Статус ответа: " + data.response + ", данные получены успешно");
+                    return data.body.var
+                }
+            } catch (err) {
+                console.error('Ошибка:', err);
+            }
+        }
+        await this.setState({elua: await getElua(eulaUrl)})
+    }
+
+
+    render() {
+        return (
+            <>
+                <Modal.Header>
+                    <Modal.Title>Пользовательское соглашение</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {this.state.elua}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="dark" onClick={this.handleCloseTerms}>
+                        Назад
+                    </Button>
+                </Modal.Footer>
+            </>
+        )
     }
 }
 export default ModalWindow;
