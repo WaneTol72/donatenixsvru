@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import Donate from './Components/Donate';
+import Main from './Components/Main';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Donate />
+    <Main />
   </React.StrictMode>,
   document.getElementById('root')
 );

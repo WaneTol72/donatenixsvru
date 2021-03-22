@@ -1,13 +1,9 @@
 import React, {Component, useState} from "react";
-import {Switch, Route, NavLink, useRouteMatch, useParams, HashRouter} from "react-router-dom";
-import {Card, Col, Image, Nav, Row} from "react-bootstrap";
+import {useParams} from "react-router-dom";
+import {Card, Col, Image, Row} from "react-bootstrap";
 import ModalWindow from "./ModalWindow";
-import Header from "./Header";
-import Footer from "./Footer";
-import '../Donate.scss';
 
-
-function GenCards(props) {
+function GetCards(props) {
 
     const [loading, setLoading] = useState(true);
     const imageLoaded = () => {setLoading(false)}
@@ -31,7 +27,7 @@ function GenCards(props) {
                                             price={variant.price}
                                             shp_product_id={variant.shp_product_id}
                                             picture={variant.iconurl}/>
-                                            <p className="mb-0">{variant.producttype}</p>
+                                        <p className="mb-0">{variant.producttype}</p>
                                     </Col>
                                     <Col lg={4}>
                                         <div className="lds-ellipsis" style={{display: loading ? "block" : "none"}}>
@@ -65,8 +61,8 @@ function GenCards(props) {
                 return [].concat.apply([], arrayKeyC);
             }
             else if (props.object[privilegeId]) {
-                    const arrayKeyC = Object.assign(props.object[privilegeId])
-                    return [].concat.apply([], arrayKeyC);
+                const arrayKeyC = Object.assign(props.object[privilegeId])
+                return [].concat.apply([], arrayKeyC);
 
             }
             else {
@@ -119,65 +115,7 @@ class CardSpawn extends Component {
     }
 
     render() {
-    return (<GenCards object={this.state.data} />);
- }
-}
-class Text extends Component {
-    render() {
-        return (<p>И тут мб че будет)</p>);
+        return (<GetCards object={this.state.data} />);
     }
 }
-function Products() {
-    let { path, url } = useRouteMatch();
-    return (
-        <>
-        <div className="mt-2 d-flex mr-auto ml-auto">
-            <Nav className="pb-1 mr-auto ml-auto">
-                <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white CatButton"  to={`${url}/all`}>ВСЕ</NavLink>
-                <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white CatButton" to={`${url}/privilege`}>ПРИВИЛЕГИИ</NavLink>
-                <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white CatButton" to={`${url}/key`}>КЛЮЧИ ОТ КЕЙСОВ</NavLink>
-                <NavLink className="nav-link category h5 font-weight-light mb-0" activeClassName="black text-white CatButton" to={`${url}/kit`}>КИТ СТАРТЫ</NavLink>
-            </Nav>
-        </div>
-    <Switch>
-        <Route exact path={path}>
-            <Text server={path} />
-        </Route>
-        <Route path={`${path}/:privilegeId`}>
-            <div className="pr-4 pl-4 pt-2 container-sm h-50 bg1 mb-5 mr-auto ml-auto">
-                <Row>
-                    <CardSpawn server={path} />
-                </Row>
-            </div>
-        </Route>
-    </Switch>
-    </>
-    )
-}
-    class Donate extends Component {
-    render() {
-        return (
-                <HashRouter>
-                    <Header />
-                    <main className="text-center ">
-                        <Switch>
-                            <Route path="/home">
-                                <p>Что-то тут должно быть...</p>
-                            </Route>
-                            <Route path="/classic">
-                                <Products/>
-                            </Route>
-                            <Route path="/creative">
-                                <Products/>
-                            </Route>
-                            <Route path="/anarchy">
-                                <Products/>
-                            </Route>
-                        </Switch>
-                    </main>
-                    <Footer />
-                </HashRouter>
-        )
-    }
-}
-export default Donate;
+export default CardSpawn

@@ -39,10 +39,9 @@ class ModalWindow extends Component {
         }
     }
 
-
     handleShowTerms = () => this.setState({showTerms: true});
     handleShow = () => this.setState({show: true});
-    handleCloseTerms = () => this.setState({showTerms: false});
+    handleCloseTerms = (e) => this.setState({showTerms: false});
     handleClose = () => this.setState({show: false});
     render() {
 
@@ -129,7 +128,7 @@ class ModalWindow extends Component {
                                     </Modal.Footer>
                                 </form>
                             </> :
-                            <Elua />
+                            <Elua handleCloseTerms={this.handleCloseTerms} />
                 }
                 </Modal>
             </>
@@ -160,8 +159,6 @@ class Elua extends Component {
         }
         await this.setState({elua: await getElua(eulaUrl)})
     }
-
-
     render() {
         return (
             <>
@@ -172,7 +169,7 @@ class Elua extends Component {
                     {this.state.elua}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="dark" onClick={this.handleCloseTerms}>
+                    <Button variant="dark" onClick={this.props.handleCloseTerms}>
                         Назад
                     </Button>
                 </Modal.Footer>
